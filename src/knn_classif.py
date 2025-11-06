@@ -11,8 +11,8 @@ class ClassifKNN:
     def __init__(self, k=5, distance='euclidienne', normaliser=False):
         """ Initialise le classificateur kNN.
         :param k: Nombre de voisins à considérer.
-        :param distance: Type de distance : 'euclidienne' pour L2, 'manhattan' pour L1, ou 'minkowski' avec p custom.
-        :param normaliser: Si True, normalise les features. """
+        :param distance 'euclidienne' pour L2, 'manhattan' pour L1, ou 'minkowski' avec p custom.
+        :param normaliser si True, normalise les features. """
         self.k = k
         self.distance = distance
         self.normaliser = normaliser
@@ -21,7 +21,7 @@ class ClassifKNN:
         self.moyenne = None  # Moyenne des features d'entraînement (utilisée pour normalisation).
         self.ecart_type = None  # Écart-type des features d'entraînement (utilisée pour normalisation).
 
-    def entraine(self, X, y):
+    def entrainer(self, X, y):
         """ Entraîne le classificateur (stocke simplement les données d'entraînement).
         :param X: Matrice des features (n_samples, n_features).
         :param y: Vecteur des labels (n_samples,). """
@@ -34,7 +34,7 @@ class ClassifKNN:
             self.ecart_type[self.ecart_type == 0] = 1  # Évite division par zéro
             self.X_train = (self.X_train - self.moyenne) / self.ecart_type
 
-    def calcule_distance(self, x1, x2, p=2):
+    def calculer_distance(self, x1, x2, p=2):
         """ Calcule la distance de Minkowski entre deux vecteurs.
         :param x1 Vecteur à comparer.
         :param x2 Vecteur à comparer.
@@ -61,7 +61,7 @@ class ClassifKNN:
             p = 3  # Valeur par défaut pour Minkowski
 
         for i in range(len(self.X_train)): # 1. Calcul des distances à tous les échantillons d'entraînement
-            dist = self.calcule_distance(x, self.X_train[i], p)
+            dist = self.calculer_distance(x, self.X_train[i], p)
             distances.append((dist, self.y_train[i]))
 
         distances.sort(key=lambda x: x[0]) # 2. Tri par distance croissante

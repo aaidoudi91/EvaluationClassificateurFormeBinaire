@@ -16,7 +16,7 @@ class ChargeDonnees:
         self.nombre_classes = 9  # Nombre total de classes dans BDshape
         self.nombre_samples = 11  # Nombre d'échantillons par classe
 
-    def analyse_fichier(self, nom_fichier):
+    def analyser_fichier(self, nom_fichier):
         """ Extrait la classe et le numéro d'échantillon du nom de fichier sachant que le format est tel que
         xx = classe, yyy = échantillon dans SxxNyyy.MET.
         :param nom_fichier à analyser.
@@ -42,7 +42,7 @@ class ChargeDonnees:
         except Exception:
             return None # En cas d'erreur (nom mal formé)
 
-    def charge_feature_vector(self, chemin):
+    def charger_feature_vector(self, chemin):
         """ Charge un vecteur de caractéristiques depuis un fichier .MET.
         :param chemin vers le fichier .MET.
         :return numpy array contenant les valeurs. """
@@ -55,7 +55,7 @@ class ChargeDonnees:
             print(f"Erreur lors du chargement de {chemin}: {e}")
             return None  # Retourne None en cas d’échec
 
-    def charge_donnees(self):
+    def charger_donnees(self):
         """ Charge toutes les données pour les cinq méthodes et les organise dans un dictionnaire.
         :return dict: {method: {'features': array, 'labels': array, 'samples': list}} """
         donnees = {}
@@ -72,7 +72,7 @@ class ChargeDonnees:
                     chemin = os.path.join(self.chemin, nom)
 
                     if os.path.exists(chemin):  # Vérifie que le fichier existe
-                        vecteur = self.charge_feature_vector(chemin)  # Lecture du vecteur
+                        vecteur = self.charger_feature_vector(chemin)  # Lecture du vecteur
                         if vecteur is not None:
                             features.append(vecteur)  # Ajout du vecteur
                             labels.append(classe)  # Ajout de la classe associée
@@ -91,7 +91,7 @@ class ChargeDonnees:
 
         return donnees  # Renvoie le dictionnaire complet
 
-    def recup_stats(self, donnees):
+    def calculer_stats(self, donnees):
         """ Calcule des statistiques descriptives sur les vecteurs de caractéristiques.
         :param donnees un dictionnaire contenant des données organisées par méthode.
         :return DataFrame avec les statistiques par méthode. """

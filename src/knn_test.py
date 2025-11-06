@@ -32,7 +32,7 @@ def evaluer_knn(X, y, k=5, distance='euclidienne', normaliser=True):
 
         # Création et entraînement du classifieur
         classif = ClassifKNN(k=k, distance=distance, normaliser=normaliser)
-        classif.entraine(X_train, y_train)
+        classif.entrainer(X_train, y_train)
 
         # Prédiction sur l’échantillon de test
         pred = classif.predire(X_test)
@@ -66,7 +66,7 @@ def evaluer_knn(X, y, k=5, distance='euclidienne', normaliser=True):
     }
 
 
-def affichage_resultats(resultats, nom_methode):
+def afficher_resultats(resultats, nom_methode):
     """ Affiche les résultats de manière formatée dans le terminal.
     :param resultats produits par evaluer_knn().
     :param nom_methode du descripteur évalué. """
@@ -87,7 +87,7 @@ def main():
     methodes = ['E34', 'GFD', 'SA', 'F0', 'F2']  # Liste des descripteurs testés
 
     print("Comparaison des méthodes de descripteurs")
-    print("Configuration: k=5, distance euclidienne, normalisation activée")
+    print("Configuration : k=5, distance euclidienne, normalisation activée")
 
     resultats_complets = {}
 
@@ -100,7 +100,7 @@ def main():
         resultats_complets[methode] = resultats
 
         # Affichage des résultats individuels
-        affichage_resultats(resultats, methode)
+        afficher_resultats(resultats, methode)
 
     # Tableau comparatif des taux de reconnaissance
     print("\nTableau récapitulatif :")

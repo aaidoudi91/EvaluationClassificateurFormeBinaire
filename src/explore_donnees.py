@@ -13,7 +13,7 @@ def main():
 
     # Étape 1 : chargement de toutes les données disponibles
     print("\n1. Chargement des données :")
-    donnees = chargeur.charge_donnees()
+    donnees = chargeur.charger_donnees()
 
     # Étape 2 : vérification du nombre total d'échantillons chargés
     print("\n2. Vérification de l'intégrité :")
@@ -33,7 +33,7 @@ def main():
 
     # Étape 4 : calcul et affichage des statistiques descriptives
     print("\n4. Statistiques descriptives :")
-    stats = chargeur.recup_stats(donnees)  # Génère un DataFrame des statistiques
+    stats = chargeur.calculer_stats(donnees)  # Génère un DataFrame des statistiques
     print(stats.to_string(index=False))  # Affiche sous forme tabulaire
 
     # Étape 5 : sauvegarde des données traitées pour usage ultérieur (format NumPy)
