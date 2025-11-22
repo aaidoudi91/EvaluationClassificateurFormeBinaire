@@ -7,7 +7,7 @@ import pandas as pd
 
 
 class ChargeDonnees:
-    """ Charge les données des fichiers SxxNyyy.MET de la base d'imges BDshape. """
+    """ Charge les données des fichiers SxxNyyy.MET de la base d'images BDshape. """
 
     def __init__(self, chemin):
         """ :param chemin: Chemin vers le dossier contenant les fichiers .MET. """

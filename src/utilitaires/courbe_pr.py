@@ -1,11 +1,16 @@
-""" Module trace_precision_rappel.py : génére des courbes précision-rappel pour les résultats kNN.
+""" Module courbe_pr.py : génére des courbes précision-rappel pour les résultats kNN.
 Ce script charge les résultats sauvegardés, calcule les courbes précision-rappel one-vs-rest pour chaque classe,
 trace et sauvegarde les figures, et affiche les AUC par classe ainsi que la moyenne. """
 
 import numpy as np
+from pathlib import Path
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve, auc
 
+# Définition dynamique des chemins
+REPERTOIRE_ACTUEL = Path(__file__).resolve().parent  # Dossier contenant ce script
+RACINE_PROJET = REPERTOIRE_ACTUEL.parent.parent  # Remonte de deux niveaux pour trouver la racine du projet
+REPERTOIRE_SORTIES = RACINE_PROJET / "donnees_numpy"  # Dossier de destination pour les fichiers .npy
 
 def trace_depuis_resultats(fichier_resultats, methode, k):
     """ Trace la courbe précision-rappel à partir des résultats sauvegardés.
@@ -70,9 +75,10 @@ def trace_depuis_resultats(fichier_resultats, methode, k):
 
 
 def main():
-    """ Génère les courbes précision-rappel pour les résultats kNN. """
-    fichier_resultats = 'resultats_knn_k10.npy'  # Fichier avec k=10
+    """ Fonction principale : pilote la génération des courbes.
+    Note : Suppose qu'un fichier 'resultats_knn_k10.npy' a été généré au préalable. """
 
+    fichier_resultats = REPERTOIRE_SORTIES / 'resultats_knn_k10.npy'  # Fichier avec k=10
     try:
         trace_depuis_resultats(fichier_resultats, 'GFD', k=10)
     except FileNotFoundError:
