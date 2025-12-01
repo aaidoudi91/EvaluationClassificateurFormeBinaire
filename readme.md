@@ -1,9 +1,9 @@
 # Étude Comparative de Classificateurs pour la Base BDshape
 
-Ce projet s'inscrit dans le cadre du Master 1 et vise à comparer différentes approches de classification appliquées au 
-dataset **BDshape**. Ce jeu de données contient des formes binaires réparties en **9 classes** (animaux, avions, etc.) 
-de **11 échantillons** chacune. Il présente des défis spécifiques tels que des occultations (classes 4 et 5), 
-des représentations partielles (classes 2 et 3) et des distorsions (classe 6).
+Ce projet vise à comparer différentes approches de classification appliquées au dataset **BDshape**. Ce jeu de données 
+contient des formes binaires réparties en **9 classes** (animaux, avions, etc.) de **11 échantillons** chacune. 
+Il présente des défis spécifiques tels que des occultations (classes 4 et 5), des représentations partielles 
+(classes 2 et 3) et des distorsions (classe 6).
 
 L'objectif est d'évaluer la performance de cinq descripteurs de formes via les approches de classification suivantes :
 1.  **k-Nearest Neighbors** : Approche supervisée (avec validation Leave-One-Out).
@@ -14,17 +14,17 @@ L'objectif est d'évaluer la performance de cinq descripteurs de formes via les 
 ```
 Projet/
 │
-├── donnees/                       # Données brutes (.E34, .F0, .F2, .GFD, .SA) toutes mélangées
+├── donnees/                    # Données brutes (.E34, .F0, .F2, .GFD, .SA) toutes mélangées
 │
-├── donnes_numpy/               # Résultats (.npy) générés
+├── donnees_numpy/              # Résultats (.npy) générés
 │   ├── donnees_chargees.npy    # Dataset complet structuré (Features & Labels par méthode) crée par explore_donnees.py
 │   │
-│   ├── resultats_knn.npy       # Résultats de kNN crée par knn_test.py
+│   ├── resultats_knn.npy       # Résultats de kNN créé par knn_test.py
 │   ├── resultats_knn_k10.npy   # Résultats de kNN spécifiques pour k=10 (utilisé pour les courbes PR)
 │   │
-│   ├── resultats_kmeans.npy    # Résultats de kmeans crée par kmeans_test.py
+│   ├── resultats_kmeans.npy    # Résultats de kmeans créé par kmeans_test.py
 │   │
-│   └── resultats_vote.npy      # Résultats du vote majoritaire crée par vote_test.py  
+│   └── resultats_vote.npy      # Résultats du vote majoritaire créé par vote_test.py  
 │
 ├── src/
 │   ├── chargement/             # Module de préparation des données
@@ -54,37 +54,59 @@ Projet/
 
 Le projet nécessite Python 3.8+.
 Installez les dépendances nécessaires via le fichier fourni :
-
 ```bash
 pip install -r requirements.txt
 ```
 
+### Bibliothèques 
+- **numpy** : Manipulation de tableaux multidimensionnels
+- **scikit-learn** : Leave-One-Out, métriques
+- **scipy** : Algorithme hongrois 
+- **pandas** : Manipulation de données tabulaires
+- **matplotlib** : Génération de graphiques
+
+
 ## Utilisation
 
-1. Chargement des données
-Lit les fichiers *.MET* dans *data/* (tous mélangés), affiche les statistiques et génère *donnees_chargees.npy*.
+1. Chargement des données :
+Lit les fichiers *.MET* dans *donnees/* (tous mélangés), affiche les statistiques et génère *donnees_chargees.npy*.
 ```bash
 python src/chargement/explore_donnees.py
 ```
 
-2. Lancer k-Nearest Neighbors
-Exécute la validation croisée Leave-One-Out pour tous les descripteurs (par défaut k=5).
+2. Lancer **k-Nearest Neighbors** :
+Exécute la validation croisée Leave-One-Out pour tous les descripteurs (par défaut k=5, distance euclidienne et 
+normalisation activée).
 ```bash
 python src/knn/knn_test.py
 ```
 
-3. Lancer k-Means
-Effectue le clustering (par défaut k=9 classes, 10 initialisations) et calcule le taux de reconnaissance via l'algorithme Hongrois.
+3. Lancer **k-Means** :
+Effectue le clustering (par défaut k=9 classes, 10 initialisations) et calcule le taux de reconnaissance via 
+l'algorithme Hongrois.
 ```bash
 python src/kmeans/kmeans_test.py
 ```
 
-4. Lancer le Vote Majoritaire
-Combine les résultats des classifieurs pour une décision finale.
+4. Lancer le **Vote Majoritaire** :
+Combine les résultats des classifieurs pour une décision finale *(nécessite -m pour les imports inter-modules)*.
 ```bash
-python src/vote/vote_test.py
+python -m src.vote_majoritaire.vote_test
 ```
 
-## Resultats
-Les scripts affichent les matrices de confusion et les scores F1 directement dans le terminal. Les fichiers persistants 
-sont stockés dans le dossier *donnes_numpy/*.
+5. Générer les courbes Précision-Rappel :
+```bash
+python src/utilitaires/courbe_pr.py
+```
+
+## Résultats
+Les scripts affichent les matrices de confusion, les scores F1 et d'autres statistiques directement dans le terminal. 
+Les fichiers persistants sont stockés dans le dossier *donnees_numpy/*.
+
+## Auteur
+Aidoudi Aaron
+
+UE de Reconnaissance des Formes - Master 1 d'Intelligence Artificielle Distribuée à l'Université Paris Cité
+
+Année Universitaire 2025-2026
+
